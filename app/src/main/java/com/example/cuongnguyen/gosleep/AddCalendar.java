@@ -22,6 +22,7 @@ public class AddCalendar extends AppCompatActivity {
     TextView txtDate,txtTime,txtTimeEnd;
     EditText editCv,editNd;
     Button btnDate,btnTime,btnAdd,btnTimeEnd;
+    Button btnViewList;
     //Khai báo Datasource lưu trữ danh sách công việc
 
     ListView lvCv;
@@ -36,6 +37,15 @@ public class AddCalendar extends AppCompatActivity {
         getFormWidgets();
         getDefaultInfor();
         addEventFormWidgets();
+        btnViewList = (Button) findViewById(R.id.btnlistcongviec);
+        btnViewList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(AddCalendar.this, ShowCalendarActivity.class);
+                startActivity(i);
+            }
+        });
+
 
 
 
