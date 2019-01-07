@@ -1,8 +1,6 @@
 package com.example.cuongnguyen.gosleep;
 
 import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,20 +8,19 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.Date;
 import java.util.List;
 
 public class CalendarAdapter extends BaseAdapter {
     Context myContex;
     int myLayout;
-    List<Calendar> arrayTime;
+    List<MyCalendar> arrayTime;
     ImageView editcalendar;
 
 
 
 
 
-    public CalendarAdapter(Context context, int layout, List<Calendar> calendarList){
+    public CalendarAdapter(Context context, int layout, List<MyCalendar> calendarList){
         myContex = context;
         myLayout = layout;
         arrayTime = calendarList;

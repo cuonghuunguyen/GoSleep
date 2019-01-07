@@ -2,7 +2,9 @@ package com.example.cuongnguyen.gosleep;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -13,23 +15,25 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+
 public class AddCalendar extends AppCompatActivity {
     TextView txtDate,txtTime,txtTimeEnd;
     EditText editCv,editNd;
     Button btnDate,btnTime,btnAdd,btnTimeEnd;
-    Button btnViewList;
+    Button btnViewList,btnAddCalendar;
     //Khai báo Datasource lưu trữ danh sách công việc
 
     ListView lvCv;
     Calendar cal;
     Date dateFinish;
     Date hourFinish;
-    TextView ChangeAddSCreen;
+    MyCalendar createcalendar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +42,8 @@ public class AddCalendar extends AppCompatActivity {
         getDefaultInfor();
         addEventFormWidgets();
         btnViewList = (Button) findViewById(R.id.btnlistcongviec);
+        btnAddCalendar = (Button) findViewById(R.id.btnaddcongviec);
+        final DatabaseHandler dbmanage = new DatabaseHandler(this);
         btnViewList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -47,6 +53,30 @@ public class AddCalendar extends AppCompatActivity {
         });
 
 
+
+        btnAddCalendar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                MyCalendar calendar =  createCalendar();
+
+                if(calendar != null){
+                dbmanage.addCalendar(calendar);
+                    editCv.getText().clear();
+                    editNd.getText().clear();
+                    AlertDialog.Builder builder = new AlertDialog.Builder(AddCalendar.this);
+                    builder.setMessage("You have just added successfully")
+                            .setTitle("Add successful")
+                            .setPositiveButton(android.R.string.ok, null);
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+
+
+                }
+
+
+            }
+        });
 
 
     }
@@ -65,6 +95,21 @@ public class AddCalendar extends AppCompatActivity {
         btnAdd=(Button) findViewById(R.id.btncongviec);
         btnTimeEnd=(Button)findViewById(R.id.btntime_end);
     }
+
+
+    private MyCalendar createCalendar(){
+
+            String title = editCv.getText().toString();
+            String content = editNd.getText().toString();
+            String day = txtDate.getText().toString();
+            String timestart = txtTime.getText().toString();
+            String timeEnd = txtTimeEnd.getText().toString();
+            createcalendar = new MyCalendar(title,content,day,timestart,timeEnd);
+            return createcalendar;
+
+
+    }
+
     /**
      * Hàm lấy các thông số mặc định khi lần đầu tiền chạy ứng dụng
      */
@@ -74,7 +119,7 @@ public class AddCalendar extends AppCompatActivity {
         cal=Calendar.getInstance();
         SimpleDateFormat dft=null;
         //Định dạng ngày / tháng /năm
-        dft=new SimpleDateFormat("dd/MM/yyyy",Locale.getDefault());
+        dft=new SimpleDateFormat("dd-MM-yyyy",Locale.getDefault());
         String strDate=dft.format(cal.getTime());
         //hiển thị lên giao diện
         txtDate.setText(strDate);
@@ -84,16 +129,12 @@ public class AddCalendar extends AppCompatActivity {
         //đưa lên giao diện
         txtTime.setText(strTime);
         //lấy giờ theo 24 để lập trình theo Tag
-        dft=new SimpleDateFormat("HH:mm",Locale.getDefault());
-        txtTime.setTag(dft.format(cal.getTime()));
 
         String strTimeEnd=dft.format(cal.getTime());
         //đưa lên giao diện
         txtTimeEnd.setText(strTimeEnd);
         //lấy giờ theo 24 để lập trình theo Tag
-        dft=new SimpleDateFormat("HH:mm",Locale.getDefault());
-        txtTimeEnd.setTag(dft.format(cal.getTime()));
-        editCv.requestFocus();
+       editCv.requestFocus();
         //gán cal.getTime() cho ngày hoàn thành và giờ hoàn thành
         dateFinish=cal.getTime();
         hourFinish=cal.getTime();
@@ -105,7 +146,6 @@ public class AddCalendar extends AppCompatActivity {
     {
         btnDate.setOnClickListener(new MyButtonEvent());
         btnTime.setOnClickListener(new MyButtonEvent());
-        btnAdd.setOnClickListener(new MyButtonEvent());
         btnTimeEnd.setOnClickListener(new MyButtonEvent());
     }
     /**
