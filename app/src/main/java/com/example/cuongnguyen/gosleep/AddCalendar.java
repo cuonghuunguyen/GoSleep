@@ -134,7 +134,7 @@ public class AddCalendar extends AppCompatActivity {
         //đưa lên giao diện
         txtTimeEnd.setText(strTimeEnd);
         //lấy giờ theo 24 để lập trình theo Tag
-       editCv.requestFocus();
+        editCv.requestFocus();
         //gán cal.getTime() cho ngày hoàn thành và giờ hoàn thành
         dateFinish=cal.getTime();
         hourFinish=cal.getTime();
@@ -183,7 +183,7 @@ public class AddCalendar extends AppCompatActivity {
                                   int dayOfMonth) {
                 //Mỗi lần thay đổi ngày tháng năm thì cập nhật lại TextView Date
                 txtDate.setText(
-                        (dayOfMonth) +"/"+(monthOfYear+1)+"/"+year);
+                        (dayOfMonth) +"-"+(monthOfYear+1)+"-"+year);
                 //Lưu vết lại biến ngày hoàn thành
                 cal.set(year, monthOfYear, dayOfMonth);
                 dateFinish=cal.getTime();
@@ -192,7 +192,7 @@ public class AddCalendar extends AppCompatActivity {
         //các lệnh dưới này xử lý ngày giờ trong DatePickerDialog
         //sẽ giống với trên TextView khi mở nó lên
         String s=txtDate.getText()+"";
-        String strArrtmp[]=s.split("/");
+        String strArrtmp[]=s.split("-");
         int ngay=Integer.parseInt(strArrtmp[0]);
         int thang=Integer.parseInt(strArrtmp[1])-1;
         int nam=Integer.parseInt(strArrtmp[2]);
