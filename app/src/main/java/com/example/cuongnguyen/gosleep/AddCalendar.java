@@ -116,7 +116,7 @@ public class AddCalendar extends AppCompatActivity {
     public void getDefaultInfor()
     {
         //lấy ngày hiện tại của hệ thống
-        cal=Calendar.getInstance();
+            cal=Calendar.getInstance();
         SimpleDateFormat dft=null;
         //Định dạng ngày / tháng /năm
         dft=new SimpleDateFormat("dd-MM-yyyy",Locale.getDefault());
@@ -124,16 +124,20 @@ public class AddCalendar extends AppCompatActivity {
         //hiển thị lên giao diện
         txtDate.setText(strDate);
         //Định dạng giờ phút am/pm
-        dft=new SimpleDateFormat("hh:mm a",Locale.getDefault());
+        dft=new SimpleDateFormat("HH:mm ",Locale.getDefault());
         String strTime=dft.format(cal.getTime());
         //đưa lên giao diện
         txtTime.setText(strTime);
         //lấy giờ theo 24 để lập trình theo Tag
+        dft=new SimpleDateFormat("HH:mm",Locale.getDefault());
+        txtTime.setTag(dft.format(cal.getTime()));
 
         String strTimeEnd=dft.format(cal.getTime());
         //đưa lên giao diện
         txtTimeEnd.setText(strTimeEnd);
         //lấy giờ theo 24 để lập trình theo Tag
+        dft=new SimpleDateFormat("HH:mm",Locale.getDefault());
+        txtTimeEnd.setTag(dft.format(cal.getTime()));
         editCv.requestFocus();
         //gán cal.getTime() cho ngày hoàn thành và giờ hoàn thành
         dateFinish=cal.getTime();
