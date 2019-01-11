@@ -60,7 +60,6 @@ public class AddCalendar extends AppCompatActivity {
             public void onClick(View v) {
 
                 MyCalendar calendar =  createCalendar();
-                System.out.print("Linh" +calendar );
                 if(calendar != null){
                 dbmanage.addCalendar(calendar);
                     editCv.getText().clear();
