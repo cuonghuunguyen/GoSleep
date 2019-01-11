@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -59,7 +60,7 @@ public class AddCalendar extends AppCompatActivity {
             public void onClick(View v) {
 
                 MyCalendar calendar =  createCalendar();
-
+                System.out.print("Linh" +calendar );
                 if(calendar != null){
                 dbmanage.addCalendar(calendar);
                     editCv.getText().clear();
@@ -70,11 +71,7 @@ public class AddCalendar extends AppCompatActivity {
                             .setPositiveButton(android.R.string.ok, null);
                     AlertDialog dialog = builder.create();
                     dialog.show();
-
-
                 }
-
-
             }
         });
 
@@ -98,16 +95,24 @@ public class AddCalendar extends AppCompatActivity {
 
 
     private MyCalendar createCalendar(){
+        if(!(editCv.getText().toString().matches("" ) || editNd.getText().toString().matches("" ) )){
 
-            String title = editCv.getText().toString();
-            String content = editNd.getText().toString();
-            String day = txtDate.getText().toString();
-            String timestart = txtTime.getText().toString();
-            String timeEnd = txtTimeEnd.getText().toString();
-            createcalendar = new MyCalendar(title,content,day,timestart,timeEnd);
-            return createcalendar;
-
-
+                String title = editCv.getText().toString();
+                String content = editNd.getText().toString();
+                String day = txtDate.getText().toString();
+                String timestart = txtTime.getText().toString();
+                String timeEnd = txtTimeEnd.getText().toString();
+                createcalendar = new MyCalendar(title,content,day,timestart,timeEnd);
+            }
+            else{
+                AlertDialog.Builder builder = new AlertDialog.Builder(AddCalendar.this);
+                builder.setMessage("You have just added failed")
+                        .setTitle("Add failed")
+                        .setPositiveButton(android.R.string.ok, null);
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            }
+        return createcalendar;
     }
 
     /**
