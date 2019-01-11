@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -28,6 +29,7 @@ public class AddCalendar extends AppCompatActivity {
     EditText editCv,editNd;
     Button btnDate,btnTime,btnAdd,btnTimeEnd;
     Button btnViewList,btnAddCalendar;
+    ImageView logo;
     //Khai báo Datasource lưu trữ danh sách công việc
 
     ListView lvCv;
@@ -44,7 +46,16 @@ public class AddCalendar extends AppCompatActivity {
         addEventFormWidgets();
         btnViewList = (Button) findViewById(R.id.btnlistcongviec);
         btnAddCalendar = (Button) findViewById(R.id.btnaddcongviec);
+        logo = (ImageView)findViewById(R.id.imageView4);
         final DatabaseHandler dbmanage = new DatabaseHandler(this);
+
+        logo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(AddCalendar.this, MainActivity.class);
+                startActivity(i);
+            }
+        });
         btnViewList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -58,15 +69,22 @@ public class AddCalendar extends AppCompatActivity {
         btnAddCalendar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 MyCalendar calendar =  createCalendar();
                 if(calendar != null){
-                dbmanage.addCalendar(calendar);
-                    editCv.getText().clear();
-                    editNd.getText().clear();
+                    dbmanage.addCalendar(calendar);
                     AlertDialog.Builder builder = new AlertDialog.Builder(AddCalendar.this);
-                    builder.setMessage("You have just added successfully")
+                    builder.setMessage("Your calendar have setted successfully")
                             .setTitle("Add successful")
+                            .setPositiveButton(android.R.string.ok, null);
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+                    editNd.setText("");
+                    editCv.setText("");
+                }
+                else {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(AddCalendar.this);
+                    builder.setMessage("Please make sure you are correct all fields")
+                            .setTitle("Add failed")
                             .setPositiveButton(android.R.string.ok, null);
                     AlertDialog dialog = builder.create();
                     dialog.show();
@@ -102,16 +120,11 @@ public class AddCalendar extends AppCompatActivity {
                 String timestart = txtTime.getText().toString();
                 String timeEnd = txtTimeEnd.getText().toString();
                 createcalendar = new MyCalendar(title,content,day,timestart,timeEnd);
-            }
-            else{
-                AlertDialog.Builder builder = new AlertDialog.Builder(AddCalendar.this);
-                builder.setMessage("You have just added failed")
-                        .setTitle("Add failed")
-                        .setPositiveButton(android.R.string.ok, null);
-                AlertDialog dialog = builder.create();
-                dialog.show();
-            }
-        return createcalendar;
+            return createcalendar;
+        }
+        else{
+            return null;
+        }
     }
 
     /**
