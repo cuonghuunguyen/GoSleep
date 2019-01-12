@@ -5,6 +5,8 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.util.Calendar;
+
 public class DatabaseHandler extends SQLiteOpenHelper{
     private static final String DATABASE_NAME = "calendarManagement";
     private static final int DATABASE_VERSION = 1;
@@ -16,9 +18,6 @@ public class DatabaseHandler extends SQLiteOpenHelper{
     private static final String KEY_DAY = "day";
     private static final String KEY_TIMESTART = "timeStart";
     private static final String KEY_TIMEEND = "timeEnd";
-
-
-
 
     public DatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -60,4 +59,13 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 
         db.close();
     }
+
+    public void deleteCalendar(MyCalendar calendar){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_NAME, KEY_ID + " = ?",
+                new String[] { String.valueOf(calendar.getId()) });
+        db.close();
+    }
+
+
 }
