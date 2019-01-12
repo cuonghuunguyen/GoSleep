@@ -16,7 +16,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.index);
         ChangeAddSCreen = (TextView) findViewById(R.id.textView4);
-
         ChangeAddSCreen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -24,6 +23,5 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
-
     }
 }

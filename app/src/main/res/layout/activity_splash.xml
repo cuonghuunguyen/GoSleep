@@ -37,6 +37,5 @@
         android:text="All Created By GoSleep @2018"
         android:textAlignment="center"
         android:textColor="#000"
-        android:textFontWeight="bold"
         android:textSize="12dp" />
 </RelativeLayout>

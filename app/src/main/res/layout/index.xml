@@ -22,7 +22,6 @@
         android:layout_height="wrap_content"
         android:text="Connect With Your Calendar"
         android:textColor="#69db0d"
-        android:textFontWeight="bold"
         android:textSize="25dp"
         android:layout_marginTop="40dp"
         android:textAlignment="center"
@@ -70,7 +69,6 @@
             android:text="Set your Calendar"
             android:textAlignment="center"
             android:textColor="#000"
-            android:textFontWeight="bold"
             android:textSize="20dp" />
 
         <TextView
@@ -84,7 +82,6 @@
             android:text="Click here!"
             android:textAlignment="center"
             android:textColor="#DF0101"
-            android:textFontWeight="bold"
             android:textSize="23dp" />
 
         <TextView
@@ -95,7 +92,6 @@
             android:text="All Created By GoSleep @2018"
             android:textAlignment="center"
             android:textColor="#000"
-            android:textFontWeight="bold"
             android:textSize="12dp" />
     </RelativeLayout>
 
