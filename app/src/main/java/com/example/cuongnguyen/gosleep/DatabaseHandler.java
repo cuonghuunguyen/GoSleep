@@ -2,8 +2,13 @@ package com.example.cuongnguyen.gosleep;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DatabaseHandler extends SQLiteOpenHelper{
     private static final String DATABASE_NAME = "calendarManagement";
@@ -59,5 +64,28 @@ public class DatabaseHandler extends SQLiteOpenHelper{
         db.insert(TABLE_NAME,null,values);
 
         db.close();
+    }
+
+    // select List calender
+
+    public List<MyCalendar> getAllcalendar() {
+        List<MyCalendar>  studentList = new ArrayList<>();
+        String selectQuery = "SELECT " + TABLE_NAME;
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery,null);
+        if (cursor.moveToFirst()){
+            do {
+             MyCalendar student = new MyCalendar();
+             student.setId(cursor.getInt(0));
+             student.setTitle(cursor.getString(1));
+             student.setContent(cursor.getString(2));
+             student.setDayformat(cursor.getString(3));
+             student.setTimeStartformat(cursor.getString(4));
+             student.setTimeEndformat(cursor.getString(5));
+             studentList.add(student);
+            }while (cursor.moveToNext());
+        }db.close();
+        return studentList;
     }
 }

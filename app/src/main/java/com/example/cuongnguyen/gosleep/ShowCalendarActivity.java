@@ -6,6 +6,7 @@ import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 
@@ -13,12 +14,15 @@ import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class ShowCalendarActivity extends AppCompatActivity {
     ListView lvCalendar;
     ArrayList<MyCalendar> arrCalender;
     ImageView logo;
-
+    Button btnlistcongviec;
+    private CustomAdapter customAdapter;
+    private List<MyCalendar> students;
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +45,7 @@ public class ShowCalendarActivity extends AppCompatActivity {
         String timeEndformat = formatter.format(time);
 
 
-        arrCalender.add(new MyCalendar(1, "di ngu", "day som nhaa",timeEndformat,timeEndformat,timeEndformat));
+        arrCalender.add(new MyCalendar(1, "di ngu", "day som nhaa 123",timeEndformat,timeEndformat,timeEndformat));
         arrCalender.add(new MyCalendar(2, "aaaaaaaaaaaa", "day som nhaa",timeEndformat,timeEndformat,timeEndformat));
 
         CalendarAdapter adapter =new CalendarAdapter(
@@ -50,6 +54,8 @@ public class ShowCalendarActivity extends AppCompatActivity {
                 arrCalender
         );
         lvCalendar.setAdapter(adapter);
+        //
+
     }
 }
 
