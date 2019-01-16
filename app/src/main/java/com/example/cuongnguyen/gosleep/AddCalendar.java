@@ -71,6 +71,7 @@ public class AddCalendar extends AppCompatActivity {
             public void onClick(View v) {
                 MyCalendar calendar =  createCalendar();
                 if(calendar != null){
+
                     dbmanage.addCalendar(calendar);
                     AlertDialog.Builder builder = new AlertDialog.Builder(AddCalendar.this);
                     builder.setMessage("Your calendar have setted successfully")

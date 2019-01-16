@@ -2,6 +2,7 @@ package com.example.cuongnguyen.gosleep;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AlertDialog;
@@ -15,6 +16,7 @@ import android.widget.ListView;
 import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 
 public class ShowCalendarActivity extends AppCompatActivity implements CalendarAdapter.OnEditClickListener{
@@ -22,12 +24,15 @@ public class ShowCalendarActivity extends AppCompatActivity implements CalendarA
     ArrayList<MyCalendar> arrCalender;
     ImageView logo;
     int pos;
+    final DatabaseHandler dbmanage = new DatabaseHandler(this);
+    CalendarAdapter adapter;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.show_time);
+
         logo = (ImageView)findViewById(R.id.imageView4);
 
         logo.setOnClickListener(new View.OnClickListener() {
@@ -40,20 +45,16 @@ public class ShowCalendarActivity extends AppCompatActivity implements CalendarA
 
 
         lvCalendar =(ListView) findViewById(R.id.listView);
-        arrCalender = new ArrayList<MyCalendar>();
+        final DatabaseHandler dbmanage = new DatabaseHandler(this);
 
-        Format formatter = new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss");
-        Date time =new Date();
-        String timeEndformat = formatter.format(time);
+        arrCalender = dbmanage.getAllStudent();
+        Collections.reverse(arrCalender);
 
-
-        arrCalender.add(new MyCalendar(1, "di ngu", "day som nhaa",timeEndformat,timeEndformat,timeEndformat));
-        arrCalender.add(new MyCalendar(2, "aaaaaaaaaaaa", "day som nhaa",timeEndformat,timeEndformat,timeEndformat));
-
-        CalendarAdapter adapter =new CalendarAdapter(
+        adapter =new CalendarAdapter(
                 ShowCalendarActivity.this,
                 R.layout.detail_time,
-                arrCalender, this
+                arrCalender,
+                this
 
         );
         lvCalendar.setAdapter(adapter);
@@ -68,7 +69,7 @@ public class ShowCalendarActivity extends AppCompatActivity implements CalendarA
     }
 
     @Override
-    public void onDeleteClick(final int pos) {
+    public void onDeleteClick( final int pos, final int posID) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
         builder.setTitle("Confirm");
@@ -78,7 +79,16 @@ public class ShowCalendarActivity extends AppCompatActivity implements CalendarA
 
 
             public void onClick(DialogInterface dialog, int which) {
+                System.out .printf("possition 3" +pos);
+
+                System.out .printf("possition 4" +posID);
+
                 // Do nothing but close the dialog
+                arrCalender.remove(pos);
+                adapter.notifyDataSetChanged();
+
+                dbmanage.deleteCalendar(posID);
+
 
             }
         });
