@@ -107,7 +107,7 @@ public class AddCalendar extends AppCompatActivity {
         editNd=(EditText) findViewById(R.id.editnoidung);
         btnDate=(Button) findViewById(R.id.btndate);
         btnTime=(Button) findViewById(R.id.btntime);
-        btnAdd=(Button) findViewById(R.id.btncongviec);
+        btnAdd=(Button) findViewById(R.id.btnaddcongviec);
         btnTimeEnd=(Button)findViewById(R.id.btntime_end);
     }
 

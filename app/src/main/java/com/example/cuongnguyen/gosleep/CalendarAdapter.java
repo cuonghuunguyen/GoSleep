@@ -62,7 +62,7 @@ public class CalendarAdapter extends ArrayAdapter<MyCalendar> {
                 @Override
                 public void onClick(View view) {
                     Log.i("linh","edit");
-                    listener.onEditClick();
+                    listener.onEditClick(position,posid );
                 }
             });
             ImageView deleteimg = (ImageView) convertView.findViewById(R.id.trash);
@@ -81,7 +81,7 @@ public class CalendarAdapter extends ArrayAdapter<MyCalendar> {
 
     }
     public interface OnEditClickListener{
-        void onEditClick();
+        void onEditClick(int position, int positionID );
         void onDeleteClick (int position,int positionID);
 
     }

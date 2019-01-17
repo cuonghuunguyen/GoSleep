@@ -86,6 +86,35 @@ public class DatabaseHandler extends SQLiteOpenHelper{
         return listStudent;
     }
 
+
+    public MyCalendar gettimeById(int id){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(TABLE_NAME, new String[] { KEY_ID,
+                        KEY_TITLE, KEY_CONTENT,KEY_DAY, KEY_TIMESTART, KEY_TIMEEND}, KEY_ID + "=?",
+                new String[] {String.valueOf(id)}, null, null, null, null);
+        if (cursor != null)
+            cursor.moveToFirst();
+
+        MyCalendar calendar = new MyCalendar(cursor.getInt(0),cursor.getString(1),cursor.getString(2),cursor.getString(3),cursor.getString(4), cursor.getString(5));
+        cursor.close();
+        db.close();
+        return calendar;
+    }
+
+
+
+    public int Update(MyCalendar calendar){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put( KEY_TITLE,calendar.getTitle());
+        values.put(KEY_CONTENT, calendar.getContent());
+        values.put(KEY_DAY, calendar.getDayformat());
+        values.put(KEY_TIMESTART, calendar.getTimeStartformat());
+        values.put(KEY_TIMEEND,calendar.getTimeEndformat());
+        return db.update(TABLE_NAME,values,KEY_ID +"=?",new String[] { String.valueOf(calendar.getId())});
+
+    }
+
     public void deleteCalendar(int id){
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_NAME, KEY_ID + " = ?",
