@@ -62,9 +62,9 @@ public class ShowCalendarActivity extends AppCompatActivity implements CalendarA
 
 
     @Override
-    public void onEditClick() {
-        Log.i("linh","edite");
+    public void onEditClick(int pos, int posID) {
         Intent i = new Intent(ShowCalendarActivity.this, EditCalendarActivity.class);
+        i.putExtra("id_trans",String.valueOf(posID));
         startActivity(i);
     }
 
