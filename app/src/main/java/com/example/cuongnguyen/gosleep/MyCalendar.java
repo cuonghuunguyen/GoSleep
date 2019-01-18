@@ -1,6 +1,7 @@
 package com.example.cuongnguyen.gosleep;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 public class MyCalendar {
@@ -14,10 +15,10 @@ public class MyCalendar {
 
     Date timeStart = new Date();
     SimpleDateFormat formatter1 = new SimpleDateFormat("HH:mm:ss");
-    String timeStartformat = formatter.format(day);
+    String timeStartformat = formatter1.format(day);
 
     Date timeEnd = new Date();
-    String timeEndformat = formatter.format(day);
+    String timeEndformat = formatter1.format(day);
 
     public MyCalendar(){
 
@@ -31,6 +32,14 @@ public class MyCalendar {
         this.timeEndformat = timeEndformat;
     }
 
+    public MyCalendar(String title, String content, long timeStart, long timeEnd ) {
+        this.Title = title;
+        this.Content = content;
+        this.dayformat = formatter.format(new Date(timeStart));
+        this.timeStartformat = formatter1.format(new Date(timeStart));
+        this.timeEndformat = formatter1.format(new Date(timeEnd));
+    }
+
     public MyCalendar(int id, String title, String content, String dayformat, String timeStartformat, String timeEndformat) {
         this.id = id;
         this.Title = title;
@@ -39,6 +48,8 @@ public class MyCalendar {
         this.timeStartformat = timeStartformat;
         this.timeEndformat = timeEndformat;
     }
+
+
 
     public int getId() {
         return id;
