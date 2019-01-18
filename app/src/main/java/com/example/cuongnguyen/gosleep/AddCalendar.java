@@ -107,14 +107,30 @@ public class AddCalendar extends AppCompatActivity {
         editNd=(EditText) findViewById(R.id.editnoidung);
         btnDate=(Button) findViewById(R.id.btndate);
         btnTime=(Button) findViewById(R.id.btntime);
-        btnAdd=(Button) findViewById(R.id.btnaddcongviec);
+        btnAdd=(Button) findViewById(R.id.btncongviec);
         btnTimeEnd=(Button)findViewById(R.id.btntime_end);
     }
 
 
     private MyCalendar createCalendar(){
-        if(!(editCv.getText().toString().matches("" ) || editNd.getText().toString().matches("" ) )){
+        String daycompare = (String) txtDate.getText().toString();
+        String timeStartCompare = (String) txtTime.getText().toString();
+        String timeEndCompare = (String) txtTimeEnd.getText().toString();
 
+        Calendar cal = Calendar.getInstance();
+        SimpleDateFormat dft=null;
+        //Định dạng ngày / tháng /năm
+        dft=new SimpleDateFormat("dd-MM-yyyy",Locale.getDefault());
+        String CurrentDate=dft.format(cal.getTime());
+        System.out .println("date :" +timeStartCompare);
+        System.out .println("date1 :" +timeEndCompare);
+        System.out .println("date2 :" +daycompare);
+        System.out .println("date3 :" +CurrentDate);
+        System.out .println("date4:" +timeEndCompare.compareTo(timeStartCompare) );
+
+        System.out .println("date5:" +daycompare.compareTo(CurrentDate) );
+
+        if(!(editCv.getText().toString().matches("" ) || editNd.getText().toString().matches("" )  || daycompare.compareTo(CurrentDate) < 0 || timeStartCompare.compareTo(timeEndCompare) > 0) ){
                 String title = editCv.getText().toString();
                 String content = editNd.getText().toString();
                 String day = txtDate.getText().toString();
